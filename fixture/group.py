@@ -7,9 +7,9 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
 
-    def select_first_group(self, wd):
+    def select_first_group(self):
         wd = self.app.wd
-        wd.find_element_by_name("selected").click()
+        wd.find_element_by_name("selected[]").click()
 
     def fill_group_form(self, group):
         wd = self.app.wd
