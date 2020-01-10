@@ -18,5 +18,9 @@ class Application:
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
+    def return_home(self):
+        wd = self.wd
+        wd.find_element_by_xpath("/html/body/div[1]/div[3]/ul/li[1]/a").click()
+
     def destroy(self):
         self.wd.quit()
