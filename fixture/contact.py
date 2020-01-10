@@ -33,14 +33,14 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.app.return_home()
+        self.open_add_contact_page()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div[1]/div[4]/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
-        self.app.return_home()
+        self.open_add_contact_page()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div[1]/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(contact)
@@ -51,4 +51,9 @@ class ContactHelper:
         wd = self.app.wd
         self.app.return_home()
         return len(wd.find_element_by_name("selected[]"))
+
+    def open_add_contact_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("photo")) > 0):
+            wd.find_element_by_link_text("add new").click()
 
