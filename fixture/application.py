@@ -27,7 +27,11 @@ class Application:
 
     def return_home(self):
         wd = self.wd
-        wd.find_element_by_xpath("/html/body/div[1]/div[3]/ul/li[1]/a").click()
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_xpath("/html/body/div[1]/div["
+                                                                                           "4]/form["
+                                                                                           "2]/table/tbody/tr[1]/th["
+                                                                                           "2]/a")) > 0):
+            wd.find_element_by_xpath("/html/body/div[1]/div[3]/ul/li[1]/a").click()
 
     def destroy(self):
         self.wd.quit()

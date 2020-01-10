@@ -33,15 +33,22 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        self.app.return_home()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div[1]/div[4]/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
+        self.app.return_home()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div[1]/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
         self.app.return_home()
+
+    def count(self):
+        wd = self.app.wd
+        self.app.return_home()
+        return len(wd.find_element_by_name("selected[]"))
 
