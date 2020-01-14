@@ -1,3 +1,6 @@
+from model.contact import Contact
+
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -40,7 +43,6 @@ class ContactHelper:
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
-        self.open_add_contact_page()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div[1]/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(contact)
@@ -57,3 +59,12 @@ class ContactHelper:
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("photo")) > 0):
             wd.find_element_by_link_text("add new").click()
 
+    def get_contacts_list(self):
+        wd = self.app.wd
+        contacts = []
+        for element in wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[@name='entry']"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            lastname = element.find_element_by_xpath(".//td[2]").text
+            firstname = element.find_element_by_xpath(".//td[3]").text
+            contacts.append(Contact(lastname=lastname, firstname=firstname, id=id))
+        return contacts
