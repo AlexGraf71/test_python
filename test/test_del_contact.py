@@ -23,5 +23,5 @@ def test_delete_some_contact(app):
     app.contact.delete_contact_by_index(index)
     new_contacts = app.contact.get_contacts_list
     assert len(old_contacts) - 1 == len(new_contacts)
-    old_contacts[index:index+1] = []
+    old_contacts[index:index + 1] = []
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
